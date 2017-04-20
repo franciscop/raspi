@@ -1,20 +1,16 @@
 const server = require('server');
 const { get, socket } = server.router;
 const gpio = require('./gpio');
+const motor = require('./motor');
 
-const timer = number => new Promise((resolve, reject) => {
-  setTimeout(() => resolve(), number);
-});
-
-const led = gpio(parseInt(process.env.LED));
+const motorL = motor(0, 2);
+const motorR = motor(4, 5);
 
 server({}, [
   get('/', ctx => ctx.res.render('index')),
   socket('left', async ctx => {
-    await led.on();
-    await timer(1000);
-    await led.off();
     console.log('LEFT');
+    await motorL.forward();
   }),
   socket('right', ctx => {
     console.log('RIGHT');
