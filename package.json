@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "mz": "^2.6.0",
     "pi-gpio": "0.0.8",
     "rpi-gpio": "^0.8.1",
     "server": "^1.0.0-alpha.36"

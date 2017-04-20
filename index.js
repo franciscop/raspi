@@ -1,17 +1,20 @@
 const server = require('server');
 const { get, socket } = server.router;
-var gpio = require("pi-gpio");
+const gpio = require('./gpio');
 
-gpio.open(12, "output", function(err) {
-  gpio.write(12, 1, function() {
-    gpio.close(12);
-  });
+const timer = number => new Promise((resolve, reject) => {
+  setTimeout(() => resolve(), number);
 });
+
+const led = gpio(12);
 
 server({}, [
   get('/', ctx => ctx.res.render('index')),
-  socket('left', ctx => {
-    console.log('LEFT');
+  socket('left', async ctx => {
+    await led.on();
+    await timer(1000);
+    await led.off();
+    console.log('LEFT', out);
   }),
   socket('right', ctx => {
     console.log('RIGHT');
