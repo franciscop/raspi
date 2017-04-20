@@ -1,6 +1,7 @@
+const gpio = require('./gpio');
 
-const motor = (a, b) => ({
-  forward: () => {
+module.exports = (a, b) => ({
+  forward: async () => {
     await gpio(a).on();
     await gpio(b).off();
   }
