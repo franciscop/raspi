@@ -14,7 +14,7 @@ server({}, [
     await led.on();
     await timer(1000);
     await led.off();
-    console.log('LEFT', out);
+    console.log('LEFT');
   }),
   socket('right', ctx => {
     console.log('RIGHT');
