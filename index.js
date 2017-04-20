@@ -6,7 +6,7 @@ const timer = number => new Promise((resolve, reject) => {
   setTimeout(() => resolve(), number);
 });
 
-const led = gpio(12);
+const led = gpio(parseInt(process.env.LED));
 
 server({}, [
   get('/', ctx => ctx.res.render('index')),
