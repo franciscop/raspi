@@ -1,5 +1,12 @@
 const server = require('server');
 const { get, socket } = server.router;
+var gpio = require("pi-gpio");
+
+gpio.open(12, "output", function(err) {
+  gpio.write(12, 1, function() {
+    gpio.close(12);
+  });
+});
 
 server({}, [
   get('/', ctx => ctx.res.render('index')),
