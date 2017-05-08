@@ -1,6 +1,5 @@
 const server = require('server');
 const { get, socket } = server.router;
-const gpio = require('./gpio');
 const motor = require('./motor');
 
 const motorL = motor(0, 2);
@@ -10,13 +9,24 @@ server({}, [
   get('/', ctx => ctx.res.render('index')),
   socket('left', async ctx => {
     console.log('LEFT');
-    await motorL.forward();
+    await Promise.all([
+      motorR.forward(),
+      motorL.backward()
+    ]);
   }),
   socket('right', ctx => {
     console.log('RIGHT');
+    await Promise.all([
+      motorL.forward(),
+      motorR.backward()
+    ]);
   }),
   socket('up', ctx => {
-    console.log('UP');
+    console.log('Forward');
+    await Promise.all([
+      motorL.forward(),
+      motorR.forward()
+    ]);
   }),
   socket('down', ctx => {
     console.log('DOWN');
