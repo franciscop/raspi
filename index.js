@@ -14,21 +14,21 @@ server({}, [
       motorL.backward()
     ]);
   }),
-  socket('right', ctx => {
+  socket('right', async ctx => {
     console.log('RIGHT');
     await Promise.all([
       motorL.forward(),
       motorR.backward()
     ]);
   }),
-  socket('up', ctx => {
+  socket('up', async ctx => {
     console.log('Forward');
     await Promise.all([
       motorL.forward(),
       motorR.forward()
     ]);
   }),
-  socket('down', ctx => {
+  socket('down', async ctx => {
     console.log('DOWN');
   }),
 ]);
