@@ -8,5 +8,9 @@ module.exports = (a, b) => ({
   backward: async () => {
     await gpio(a).off();
     await gpio(b).on();
+  },
+  stop: async () => {
+    await gpio(a).off();
+    await gpio(b).off();
   }
 });

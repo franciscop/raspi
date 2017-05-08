@@ -22,13 +22,17 @@ server({}, [
     ]);
   }),
   socket('up', async ctx => {
-    console.log('Forward');
+    console.log('FORWARD');
     await Promise.all([
       motorL.forward(),
       motorR.forward()
     ]);
   }),
   socket('down', async ctx => {
-    console.log('DOWN');
+    console.log('BACKWARD');
+    await Promise.all([
+      motorL.stop(),
+      motorR.stop()
+    ]);
   }),
 ]);
