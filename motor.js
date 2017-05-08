@@ -6,6 +6,7 @@ module.exports = (a, b) => ({
     await gpio(b).off();
   },
   backward: async () => {
+    console.log(`Called: ${a} off & ${b} on`);
     await gpio(a).off();
     await gpio(b).on();
   },
