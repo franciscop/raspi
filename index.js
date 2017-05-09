@@ -16,6 +16,7 @@ server({}, [
   socket('init', async ctx => {
     setInterval(() => {
       cam.capture(temp, function(err, data) {
+        if (err) return console.log(err);
         const file = fs.readFileSync(temp);
         ctx.socket.emit('frame', { image: true, buffer: file.toString('base64') });
       });
