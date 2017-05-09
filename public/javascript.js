@@ -23,12 +23,12 @@ Mousetrap.bind('up', e => event('forward'));
 Mousetrap.bind('down', e => event('backward'));
 
 // Render the images in the <img> element
+const body = document.body;
 const img = document.querySelector('img');
 socket.emit('init');
 socket.on('frame', e => {
   if (e.image) {
     img.src = 'data:image/jpeg;base64,' + e.buffer;
-    // ctx.drawImage(img, 0, 0);
   }
 });
 
