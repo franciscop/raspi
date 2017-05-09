@@ -3,7 +3,11 @@ const socket = io();
 const joystick = document.querySelector('.joystick');
 const position = document.querySelector('.position');
 
+let last = new Date();
 const event = name => {
+  if (new Date() - last < 500) {
+    return;
+  }
   console.log(name);
   position.className = 'position ' + name;
   return socket.emit(name);
