@@ -4,8 +4,11 @@ const joystick = document.querySelector('.joystick');
 const position = document.querySelector('.position');
 
 let last = new Date();
+let pending = false;
 const event = name => {
   if (new Date() - last < 500) {
+    pending = name;
+    setTimeout(() => event(pending), 500);
     return;
   }
   last = new Date();
