@@ -8,6 +8,7 @@ const event = name => {
   if (new Date() - last < 500) {
     return;
   }
+  last = new Date();
   console.log(name);
   position.className = 'position ' + name;
   return socket.emit(name);
