@@ -1,27 +1,15 @@
 const server = require('server');
 const { get, socket } = server.router;
 const motor = require('./motor');
-const webcam = require('node-webcam');
-const os = require('os');
-const fs = require('fs');
-const path = require('path');
-const cam = webcam.create({ width: 640, height: 480 });
-const temp = path.join(os.tmpdir(), 'demo.jpg');
 
 const motorL = motor(0, 2);
 const motorR = motor(4, 5);
 
+const stream = require('./streamer');
+
 server({}, [
   get('/', ctx => ctx.res.render('index')),
-  socket('init', async ctx => {
-    setInterval(() => {
-      cam.capture(temp, function(err, data) {
-        if (err) return console.log(err);
-        const file = fs.readFileSync(temp);
-        ctx.socket.emit('frame', { image: true, buffer: file.toString('base64') });
-      });
-    }, 1000);
-  }),
+  socket('init', stream),
   socket('left', async ctx => {
     console.log('LEFT');
     await Promise.all([
