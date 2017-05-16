@@ -23,5 +23,5 @@ module.exports = async ctx => {
     });
     const file = await fs.readFile(temp);
     ctx.socket.emit('frame', { image: true, buffer: file.toString('base64') });
-  }, 1000);
+  }, parseInt(process.env.DELAY));
 };
