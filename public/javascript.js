@@ -15,7 +15,8 @@ Mousetrap.bind('left', e => event('left'));
 Mousetrap.bind('right', e => event('right'));
 Mousetrap.bind('up', e => event('forward'));
 Mousetrap.bind('down', e => event('backward'));
-Mousetrap.bind('espace', e => event('stop'));
+Mousetrap.bind('space', e => event('stop'));
+Mousetrap.bind('escape', e => event('stop'));
 
 // Render the images in the <img> element
 const body = document.body;
