@@ -13,7 +13,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
+    "start": "git pull origin master && echo 'Starting Robot...' && node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

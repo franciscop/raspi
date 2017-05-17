@@ -48,4 +48,6 @@ server({}, [
       motorR.stop()
     ]);
   }),
-]);
+]).then(() => {
+  console.log('Started!');
+});
