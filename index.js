@@ -10,7 +10,10 @@ server({}, [
   get('/', ctx => ctx.res.render('index')),
   socket('init', ctx => {
     setInterval(async () => {
-      ctx.socket.emit('frame', await camera());
+      ctx.socket.emit('frame', await camera({
+        resolution: '320x240',
+        rotate: 90
+      }));
     }, parseInt(process.env.DELAY || 1000));
   }),
   socket('left', async ctx => {
