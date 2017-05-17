@@ -1,15 +1,18 @@
 const server = require('server');
 const { get, socket } = server.router;
 const motor = require('./motor');
+const camera = require('./camera');
 
 const motorL = motor(0, 2);
 const motorR = motor(4, 5);
 
-const stream = require('./streamer');
-
 server({}, [
   get('/', ctx => ctx.res.render('index')),
-  socket('init', stream),
+  socket('init', ctx => {
+    setInterval(async () => {
+      ctx.socket.emit('frame', await camera());
+    }, parseInt(process.env.DELAY || 1000));
+  }),
   socket('left', async ctx => {
     console.log('LEFT');
     await Promise.all([

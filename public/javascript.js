@@ -3,17 +3,11 @@ const socket = io();
 const joystick = document.querySelector('.joystick');
 const position = document.querySelector('.position');
 
-let last = new Date();
-let pending = false;
+let last = false;
 const event = name => {
-  if (new Date() - last < 500) {
-    pending = name;
-    setTimeout(() => event(pending), 500);
-    return;
-  }
-  last = new Date();
-  console.log(name);
-  position.className = 'position ' + name;
+  if (last && last === name) return;
+  last = name;
+  position.className = `position ${name}`;
   return socket.emit(name);
 };
 
@@ -26,10 +20,11 @@ Mousetrap.bind('down', e => event('backward'));
 const body = document.body;
 const img = document.querySelector('img');
 socket.emit('init');
-socket.on('frame', e => {
-  if (e.image) {
-    img.src = 'data:image/jpeg;base64,' + e.buffer;
-  }
+socket.on('frame', data => {
+  // Preload it to avoid flickering
+  let temp = new Image();
+  temp.src = 'data:image/jpeg;base64,' + data;
+  temp.onload = () => { img.src = 'data:image/jpeg;base64,' + data; };
 });
 
 
